@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Approval</title>
+</head>
+<body>
+    <table border="auto">
+        {%for row in data%}
+        <tr>
+            <td><label>{{row[0]}}</label></td>
+            <td>
+                <label>{{row[1]}}</label>
+            </td>
+            <td><form method="post" action="/admin/req-approval-acc-s">
+                
+                <input type="hidden" name="s_id" value="{{row[0]}}">
+                
+                <button type="submit">Approve</button>
+            </form>
+            </td>
+            <td>
+                <form method="post" action="/admin/req-approval-rej-s">
+                    <input type="hidden" name="s_id" value="{{row[0]}}">
+                    <button type="submit">Reject</button>
+                </form>
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/admin/update-staff" method="post">
+        <input type="hidden" name="s_id" value="{{data[0]}}">
+        Name: &nbsp;&nbsp;&nbsp; <input type="text" name="name" value="{{data[1]}}"><br>
+        Mail: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="mail" value="{{data[2]}}"><br>
+        IsAdmin: <input type="text" name="isadmin" value="{{data[4]}}"><br>
+        IsApproved: <input type="text" name="isapproved" value="{{data[5]}}"><br>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

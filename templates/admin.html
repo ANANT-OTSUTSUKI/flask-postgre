@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+</head>
+<body style="font-family: 'Courier New', Courier, monospace;">
+    <a href="/logout">Logout</a><br>
+    Hello {{current_user.username}}<br><br>
+    <a href="/admin/req-staff">Request for staff approval</a>
+    <br>
+    <a href="/admin/req-admin">Request for Admin approval</a>
+<hr><hr>
+    <h1><b><u>CUSTOMERS</h1></b></u>
+    <table border="auto">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Mail</th>
+            <th>Address</th>
+        </tr>
+        {% for row in c_data %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+
+
+    <h2>ADD CUSTOMER</h2>
+    <form action="/admin/create-customer" method="post">
+        Name: &nbsp;&nbsp;&nbsp; <input required type="text" name="name" placeholder="Name"><br>
+        Mail: &nbsp;&nbsp;&nbsp;&nbsp;<input required type="email" name="mail" placeholder="Mail"><br>
+        Address: &nbsp;<input required type="text" name="address" placeholder="Address"><br>
+        <button type="submit">ADD</button>
+    </form>
+    <h2>Update CUSTOMER by ID</h2>
+    <form action="/admin/upc" method="post">
+        Customer ID: <input required type="integer" name="c_id" placeholder="ID">
+        <button type="submit"> ENTER </button>
+    </form>
+    <h2>Delete CUSTOMER by ID</h2>
+    <form action="/admin/delete-customer" method="post">
+        Customer ID: <input required type="integer" name="c_id" placeholder="ID">
+        <button type="submit"> DELETE </button>
+    </form>
+
+    <hr><hr>
+
+    <h1><b><u>STAFF</h1></b></u>
+    <table border="auto">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>EMail</th>
+            <th>IsAdmin</th>
+            <th>IsApproved</th>
+        </tr>
+        {% for row in s_data %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[4]}}</td>
+            <td>{{row[5]}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+
+    <h2>ADD staff</h2>
+    <form action="/admin/create-staff" method="post">
+        Name: &nbsp;&nbsp;&nbsp; <input required type="text" name="username" placeholder="Name"><br>
+        Mail: &nbsp;&nbsp;&nbsp;&nbsp;<input required type="email" name="email" placeholder="Mail"><br>
+        Password: <input required type="text" name="password" placeholder="Password"><br>
+        IsAdmin: &nbsp;<input required type="text" name="isadmin" placeholder="IsAdmin"><br>
+        IsApprvd: <input required type="text" name="isapproved" placeholder="IsApproved"><br>
+
+        <button type="submit">ADD</button>
+    </form>
+    <h2>Update staff by ID</h2>
+    <form action="/admin/upca" method="post">
+        staff ID: <input required type="integer" name="s_id" placeholder="ID">
+        <button type="submit"> ENTER </button>
+    </form>
+    <h2>Delete staff by ID</h2>
+    <form action="/admin/delete-staff" method="post">
+        staff ID: <input required type="integer" name="s_id" placeholder="ID">
+        <button type="submit"> DELETE </button>
+    </form>
+
+    <hr><hr>
+    <h1><b><u>Transactions</h1></b></u>
+    <table border="auto">
+        <tr>
+            <th>ID</th>
+            <th>Customer ID</th>
+            <th>Staff ID</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+        {% for row in t_data %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+            <td>{{row[5]}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    <h2>Add transactions</h2>
+    <form action="/admin/add-transaction" method="post">
+        Customer Id: <input required type="text" name="c_id" placeholder="c_id"><br>
+        <input required type="hidden" name="s_id" value="{{current_user.s_id}}">
+        Amount: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input required type="text" name="amount" placeholder="amount"><br>
+        <button type="submit">ADD</button>
+    </form>
+    <h2>Update transaction by ID</h2>
+    <form action="/admin/upta" method="post">
+        transaction ID: <input type="integer" name="t_id" placeholder="ID">
+        <button type="submit"> ENTER </button>
+    </form>
+    <h2>Delete transaction by ID</h2>
+    <form action="/admin/delete-transaction" method="post">
+        transaction ID: <input type="integer" name="t_id" placeholder="ID">
+        <button type="submit"> DELETE </button>
+    </form>
+
+    <hr><hr>
+    <h1>LOGIN Details</h1>
+    <table border="auto">
+        <tr>
+            <th>Username</th>
+            <th>Login TIME</th>
+            <th>Login DATE</th>
+        </tr>
+        {% for row in l_data %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    
+</body>
+</html>

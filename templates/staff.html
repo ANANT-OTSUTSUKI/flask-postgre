@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAFF</title>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif;">
+    <a href="/logout">Logout</a><br>
+    <form action="/staff/request-approval" method="post">
+        Hello!! {{current_user.username}} , request for approval: <input type="hidden" name="s_id" value="{{current_user.s_id}}">
+        <button type="submit">Request</button>
+    </form>
+    <hr><hr>
+    <h1>CUSTOMERS</h1>
+    <table border="auto">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Mail</th>
+            <th>Address</th>
+        </tr>
+        {% for row in c_data %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+
+    <h2>ADD CUSTOMER</h2>
+    <form action="/staff/create-customer" method="post">
+        Name: &nbsp;&nbsp;&nbsp; <input type="text" name="name" placeholder="Name"><br>
+        Mail: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="mail" placeholder="Mail"><br>
+        Address: <input type="text" name="address" placeholder="Address"><br>
+        <button type="submit">ADD</button>
+    </form>
+    <h2>Update CUSTOMER by ID</h2>
+    <form action="/staff/upc" method="post">
+        Customer ID: <input type="integer" name="c_id" placeholder="ID">
+        <button type="submit"> ENTER </button>
+    </form>
+    <h2>Delete CUSTOMER by ID</h2>
+    <form action="/staff/delete-customer" method="post">
+        Customer ID: <input type="integer" name="c_id" placeholder="ID">
+        <button type="submit"> DELETE </button>
+    </form>
+    <br>
+    <hr><hr>
+    <h1>Transactions</h1>
+    <h2>Add transactions</h2>
+    <form action="/staff/add-transaction" method="post">
+        Customer Id: <input type="text" name="c_id" placeholder="c_id"><br>
+        <input type="hidden" name="s_id" value="{{current_user.s_id}}">
+        Amount: &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <input type="text" name="amount" placeholder="amount"><br>
+        <button type="submit">ADD</button>
+    </form>
+    <h2>Update transaction by ID</h2>
+    <form action="/staff/upt" method="post">
+        transaction ID: <input type="integer" name="t_id" placeholder="ID">
+        <button type="submit"> ENTER </button>
+    </form>
+    <h2>Delete transaction by ID</h2>
+    <form action="/staff/delete-transaction" method="post">
+        transaction ID: <input type="integer" name="t_id" placeholder="ID">
+        <button type="submit"> DELETE </button>
+    </form>
+</body> 
+</html>

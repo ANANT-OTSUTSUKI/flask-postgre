@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USER</title>
+</head>
+<body>
+    <a href="/logout">Logout</a><br>
+    <form action="/user/request-approval" method="post">
+        Hello!! {{current_user.username}} , request for approval: <input type="hidden" name="s_id" value="{{current_user.s_id}}">
+        <button type="submit">Request</button>
+    </form>
+</body>
+</html>
