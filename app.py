@@ -8,6 +8,7 @@ from user import user
 import datetime
 from flask_mail import *
 from random import *
+import os
 
 app = Flask(__name__)
 app.secret_key="hello motto"
@@ -28,8 +29,11 @@ setTimeout(function() {{window.location.assign("{url}")}},1000);
 </script>
 '''
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:12345678@localhost:5432/week3_db'
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 db.init_app(app)
 
