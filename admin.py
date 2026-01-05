@@ -116,4 +116,75 @@ def create_staff():
     staff = STAFF(
         username=request.form['username'],
         email=request.form['email'],
-        password=request.form['password'],  # alrea
+        password=request.form['password'],  # already hashed elsewhere
+        isadmin=request.form['isadmin'],
+        isapproved=request.form['isapproved']
+    )
+    db.session.add(staff)
+    db.session.commit()
+    return redirect(url_for('admin.admin'))
+
+
+@admin.route('/update-staff', methods=['POST'])
+@login_required
+def update_staff():
+    staff = STAFF.query.get(request.form['s_id'])
+    if staff:
+        staff.username = request.form['name']
+        staff.email = request.form['mail']
+        staff.isadmin = request.form['isadmin']
+        staff.isapproved = request.form['isapproved']
+        db.session.commit()
+    return redirect(url_for('admin.admin'))
+
+
+@admin.route('/delete-staff', methods=['POST'])
+@login_required
+def delete_staff():
+    staff = STAFF.query.get(request.form['s_id'])
+    if staff:
+        db.session.delete(staff)
+        db.session.commit()
+    return redirect(url_for('admin.admin'))
+
+# =========================
+# TRANSACTIONS
+# =========================
+
+@admin.route('/add-transaction', methods=['POST'])
+@login_required
+def add_trans():
+    trans = Trans(
+        c_id=request.form['c_id'],
+        s_id=request.form['s_id'],
+        amount=request.form['amount'],
+        t_date=datetime.date.today(),
+        t_time=datetime.datetime.now().time()
+    )
+    db.session.add(trans)
+    db.session.commit()
+    return redirect(url_for('admin.admin'))
+
+
+@admin.route('/update-transaction', methods=['POST'])
+@login_required
+def update_tran():
+    trans = Trans.query.get(request.form['t_id'])
+    if trans:
+        trans.s_id = request.form['s_id']
+        trans.c_id = request.form['c_id']
+        trans.amount = request.form['amount']
+        trans.t_date = datetime.date.today()
+        trans.t_time = datetime.datetime.now().time()
+        db.session.commit()
+    return redirect(url_for('admin.admin'))
+
+
+@admin.route('/delete-transaction', methods=['POST'])
+@login_required
+def delete_tran():
+    trans = Trans.query.get(request.form['t_id'])
+    if trans:
+        db.session.delete(trans)
+        db.session.commit()
+    return redirect(url_for('admin.admin'))
